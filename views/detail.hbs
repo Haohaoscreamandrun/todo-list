@@ -1,4 +1,6 @@
 <p>
   {{todo.name}}
 </p>
+{{!-- 在 detail 頁面由於傳入的資料叫 todo，記得要用 todo._id 來拿到資料的識別碼。 --}}
+<a href="/todos/{{ todo._id}}/edit">edit</a>
 <a href="/">back</a>
