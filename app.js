@@ -57,6 +57,15 @@ app.post('/todos',(req,res)=>{  //往/todos post new todo
   
 })
 
+app.get('/todos/:id',(req,res)=>{
+  //在路由網址如果用了冒號 :，表示這是一個動態參數，可以用 req.params 取出，這裡我們設定 :id，所以就用 req.params.id 拿到資料。
+  const id = req.params.id
+  return Todo.findById(id)
+    .lean()
+    .then(todo => res.render('detail', {todo}))
+    .catch(error => console.error(error))
+})
+
 // Listening to port 3000
 app.listen(port,()=>{
   console.log(`App is running on port:${port}`)
