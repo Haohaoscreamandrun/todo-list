@@ -81,10 +81,19 @@ app.post('/todos/:id/edit',(req,res)=>{
     .then(todo => {
       todo.name = name
       return todo.save()
+      //這次因為搭配的資料操作是 Todo.findById，這個方法只會返回一筆資料，所以後面需要接 todo.save() 針對這一筆資料進行儲存，而非操作整份資料。
     })
     .then(()=> res.redirect(`/todos/${id}`))
     .catch(error=>console.error(error))
 
+})
+
+app.post('/todos/:id/delete',(req,res)=>{
+  const id = req.params.id
+  return Todo.findById(id)
+    .then(todo => todo.remove())
+    .then(()=> res.redirect('/'))
+    .catch(error=>console.error(error))
 })
 
 // Listening to port 3000
