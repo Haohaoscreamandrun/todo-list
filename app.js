@@ -76,10 +76,14 @@ app.get('/todos/:id/edit',(req,res)=>{
 
 app.post('/todos/:id/edit',(req,res)=>{
   const id = req.params.id
-  const name = req.body.name
+  // const name = req.body.name
+  // const isDone = req.body.isDone
+  // 解構賦值
+  const {name, isDone} = req.body
   return Todo.findById(id)
     .then(todo => {
       todo.name = name
+      todo.isDone = (isDone === 'on')
       return todo.save()
       //這次因為搭配的資料操作是 Todo.findById，這個方法只會返回一筆資料，所以後面需要接 todo.save() 針對這一筆資料進行儲存，而非操作整份資料。
     })

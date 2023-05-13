@@ -4,6 +4,7 @@
 <ul>
   {{#each todos}}
   <li>
+    <input type="checkbox" name="isDone" {{#if this.isDone}} checked {{/if}} disabled>
     {{this.name}}
     {{!-- 在 Mongoose 裡使用 _id 來表示每筆資料的唯一識別碼，而識別碼的內容是一筆 16 進位的流水號。這個 _id 屬性不需要在 Schema 裡指定，Mongoose 會自動產生。 --}}
     <a href="/todos/{{ this._id }}">detail</a>
