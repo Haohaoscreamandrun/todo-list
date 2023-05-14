@@ -5,7 +5,7 @@ const router = express.Router()
 // Include home route
 const home = require('./modules/home')
 // Direct all '/' request to home module
-router.use('/', home) 
+router.use('/', home)
 
 // Include todos route
 const todos = require('./modules/todos')
