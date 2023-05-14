@@ -11,6 +11,7 @@ const app = express()
 const port = 3000
 
 const Todo = require('./models/todo')
+const methodOverride = require('method-override')
 
 // set template engine
 app.engine('hbs',exphbs({defaultLayout:'main',extname:'.hbs'})) //建立一個名為hbs的樣板引擎，並傳入exphbs為相關參數
@@ -18,6 +19,8 @@ app.set('view engine','hbs') //啟用樣板引擎hbs
 
 // decrypt request body
 app.use(bodyParser.urlencoded({extended: true}))
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
 
 //Connection
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -76,7 +79,7 @@ app.get('/todos/:id/edit',(req,res)=>{
     .catch(error => console.error(error))
 })
 
-app.post('/todos/:id/edit',(req,res)=>{
+app.put('/todos/:id',(req,res)=>{
   const id = req.params.id
   // const name = req.body.name
   // const isDone = req.body.isDone
@@ -94,7 +97,7 @@ app.post('/todos/:id/edit',(req,res)=>{
 
 })
 
-app.post('/todos/:id/delete',(req,res)=>{
+app.delete('/todos/:id',(req,res)=>{
   const id = req.params.id
   return Todo.findById(id)
     .then(todo => todo.remove())
