@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-const port = 3000
+const port = process.env.PORT || 3000
 const methodOverride = require('method-override')
 // Include router
 const routes = require('./routes') // it'll find 'index.js' automatically
